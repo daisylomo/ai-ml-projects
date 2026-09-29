@@ -136,24 +136,11 @@ class Environment:
 
     def get_transition_model(self, row, col, action):
         '''
-        Definition
-        __________
-
-        Returns the transition model P(s'|s,a) for a particular state and action
-
-
-        Parameters
-        __________
-
-        row : int
-            The row (indexed from 0) of the specified state
-
-        col : int
-            The column (indexed from 0) of the specified state
-
-        action: tuple
-            The action that is being taken
-
+        Definition: Returns the transition model P(s'|s,a) for a particular state and action
+        Parameters:
+        row : int {The row (indexed from 0) of the specified state
+        col : int {The column (indexed from 0) of the specified state
+        action: tuple {The action that is being taken
         '''
 
         # initialize the transition model as a dictionary to store the mappings
@@ -172,22 +159,17 @@ class Environment:
         for probability, direction in dir_and_probability:
             new_row = row + direction[0]
             new_col = col + direction[1]
-
             # process further only if the new coordinates are valid coordinates
             if 0 <= new_row < self.get_grid_height() and 0 <= new_col < self.get_grid_width():
-
                 # if the new coordinates are that of a wall, then the agent stays in the current state
                 if self.grid[new_row][new_col] == "wall":
                     new_row, new_col = row, col
-
             # otherwise the agent remains in the current state
             else:
                 new_row, new_col = row, col
 
             # add the probability to the updated state entry in the transition model
             transition_model[(new_row, new_col)] += probability
-
-        # return the transition model to the caller
         return transition_model
 
     def is_wall(self, row, col):
